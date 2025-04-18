@@ -1,14 +1,24 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
+import { useEffect } from "react"
 import "../styles/Features.css"
 
 const Features = () => {
+  const controls = useAnimation()
   const [ref, inView] = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.1,
   })
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible")
+    } else {
+      controls.start("hidden")
+    }
+  }, [controls, inView])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -16,103 +26,179 @@ const Features = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
+        delayChildren: 0.3,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 40,
+      scale: 0.95
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      scale: 1,
+      transition: { 
+        type: "spring",
+        damping: 15,
+        stiffness: 100,
+        duration: 0.6 
+      },
     },
+    hover: {
+      y: -15,
+      scale: 1.02,
+      transition: {
+        type: "spring",
+        damping: 10,
+        stiffness: 300
+      }
+    }
   }
 
+  const features = [
+    {
+      title: "Industry Standard Speech-to-Text",
+      description: "Advanced speech recognition for accurate transcription in any environment.",
+      icon: "https://cdn-icons-png.flaticon.com/512/2593/2593075.png",
+      points: [
+        "Industry-leading accuracy",
+        "Noise reduction technology",
+        "125+ languages support",
+        "Speaker identification"
+      ],
+      accentColor: "#6366f1"
+    },
+    {
+      title: "Advanced Transcription Options",
+      description: "Fine-tune settings for maximum accuracy and customization.",
+      icon: "https://cdn-icons-png.flaticon.com/512/3721/3721619.png",
+      points: [
+        "Custom segment length",
+        "Speaker management",
+        "Advanced timing controls",
+        "Quality optimization"
+      ],
+      accentColor: "#10b981"
+    },
+    {
+      title: "Custom Dictionaries",
+      description: "Improve accuracy for specialized terminology and proper nouns.",
+      icon: "https://cdn-icons-png.flaticon.com/512/2232/2232688.png",
+      points: [
+        "Specialized terminology lists",
+        "Automatic entity recognition",
+        "Technical terms accuracy",
+        "Multi-language support"
+      ],
+      accentColor: "#f59e0b"
+    },
+    {
+      title: "Team Collaboration",
+      description: "Edit and refine transcripts with your entire team in real-time.",
+      icon: "https://cdn-icons-png.flaticon.com/512/1534/1534938.png",
+      points: [
+        "Shared project access",
+        "Comment & annotation tools",
+        "Role-based permissions",
+        "Real-time updates"
+      ],
+      accentColor: "#3b82f6"
+    },
+  ]
+
   return (
-    <section className="features-section" ref={ref}>
-      <div className="container">
+    <section className="features-section" ref={ref} id="features">
+      <div className="features-container">
         <motion.div
           className="section-header"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: {
+                type: "spring",
+                damping: 10,
+                stiffness: 100
+              }
+            }
+          }}
         >
-          <h2>Powerful Features for Media Professionals</h2>
-          <p>
-            Everything you need to transform speech to text and create professional-quality subtitles for global
-            audiences.
-          </p>
+          <motion.h2 
+            className="section-title"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            Powerful Features for Media Professionals
+          </motion.h2>
+          <motion.p className="section-subtitle">
+            Transform speech to text and create professional-quality subtitles for global audiences.
+          </motion.p>
         </motion.div>
 
         <motion.div
           className="features-grid"
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={controls}
         >
-          <motion.div
-            className="feature-card"
-            variants={itemVariants}
-            whileHover={{ y: -10, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)" }}
-          >
-            <h3>Industry standard Speech to text engine</h3>
-            <p>
-              Our advanced speech recognition technology accurately transcribes audio in multiple accents and
-              environments.
-            </p>
-            <ul>
-              <li>Industry leading accuracy for clear speech</li>
-              <li>Noise reduction for field recordings</li>
-              <li>Support for 125+ languages and dialects</li>
-              <li>Speaker identification and diarization</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            className="feature-card"
-            variants={itemVariants}
-            whileHover={{ y: -10, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)" }}
-          >
-            <h3>Advanced Speech to text options</h3>
-            <p>Fine-tune your transcription settings for maximum accuracy and customization.</p>
-            <ul>
-              <li>Customize segment length and duration</li>
-              <li>Speaker management and identification</li>
-              <li>Advanced timing controls</li>
-              <li>Quality optimization settings</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            className="feature-card"
-            variants={itemVariants}
-            whileHover={{ y: -10, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)" }}
-          >
-            <h3>Custom Dictionaries</h3>
-            <p>Improve accuracy for industry-specific terminology and proper nouns with custom dictionaries.</p>
-            <ul>
-              <li>Create specialized terminology lists</li>
-              <li>Automatic entity recognition</li>
-              <li>Higher accuracy for technical terms</li>
-              <li>Multiple language support</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            className="feature-card"
-            variants={itemVariants}
-            whileHover={{ y: -10, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)" }}
-          >
-            <h3>Team Collaboration</h3>
-            <p>Edit and refine transcripts and translations with your entire team through shared project access.</p>
-            <ul>
-              <li>Team-based project collaboration</li>
-              <li>Comment and annotation tools</li>
-              <li>Role-based access control</li>
-              <li>Real-time updates</li>
-            </ul>
-          </motion.div>
+          {features.map((feature, index) => (
+            <motion.div
+              className="feature-card"
+              key={index}
+              variants={itemVariants}
+              whileHover="hover"
+              whileTap={{ scale: 0.98 }}
+              style={{ 
+                '--accent-color': feature.accentColor,
+                '--accent-light': `${feature.accentColor}20`
+              }}
+            >
+              <div className="card-glow" />
+              <div className="feature-icon">
+                <motion.img 
+                  src={feature.icon} 
+                  alt={feature.title}
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ 
+                    type: "spring",
+                    delay: 0.2 + index * 0.1,
+                    stiffness: 150
+                  }}
+                />
+              </div>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+              <ul>
+                {feature.points.map((point, i) => (
+                  <motion.li 
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      delay: 0.4 + index * 0.1 + i * 0.05,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                  >
+                    {point}
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div 
+                className="card-hover-effect"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileHover={{ opacity: 1, scale: 1 }}
+              />
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

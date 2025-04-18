@@ -26,7 +26,7 @@
 
 .testimonials-card {
   background-color: var(--card-background);
-  border-radius: 16px;
+  border-radius: 24px;
   padding: 3rem;
   box-shadow: var(--card-shadow);
   position: relative;
@@ -39,7 +39,6 @@
   left: 2rem;
   color: var(--primary-color);
   opacity: 0.2;
-  transform: scale(2);
 }
 
 .testimonials-content {
@@ -47,6 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .testimonial {
@@ -98,21 +98,29 @@
   margin-top: 2rem;
 }
 
-.testimonials-controls button {
+.control-button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
   background-color: var(--background-secondary);
   color: var(--text-color);
+  font-weight: 600;
   transition: all var(--transition-speed) var(--transition-function);
 }
 
-.testimonials-controls button:hover {
+.control-button:hover {
   background-color: var(--primary-light);
   color: var(--primary-color);
+}
+
+.control-button.prev {
+  padding-left: 1rem;
+}
+
+.control-button.next {
+  padding-right: 1rem;
 }
 
 .testimonials-dots {
@@ -145,5 +153,18 @@
 
   .testimonial > p {
     font-size: 1.1rem;
+  }
+
+  .control-button span {
+    display: none;
+  }
+
+  .control-button {
+    padding: 0.75rem;
+  }
+
+  .control-button.prev,
+  .control-button.next {
+    padding: 0.75rem;
   }
 }

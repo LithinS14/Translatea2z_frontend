@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Check } from "../icons/Icons"
 import "../styles/CallToAction.css"
 
 const CallToAction = () => {
@@ -28,19 +27,19 @@ const CallToAction = () => {
 
           <div className="cta-features">
             <div className="feature">
-              <Check />
+              <i className="fas fa-check"></i>
               <span>Start for free</span>
             </div>
             <div className="feature">
-              <Check />
+              <i className="fas fa-check"></i>
               <span>No credit card required to get started</span>
             </div>
             <div className="feature">
-              <Check />
+              <i className="fas fa-check"></i>
               <span>Access to essential features</span>
             </div>
             <div className="feature">
-              <Check />
+              <i className="fas fa-check"></i>
               <span>Dedicated support to help you succeed</span>
             </div>
           </div>

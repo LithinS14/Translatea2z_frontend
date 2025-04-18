@@ -13,6 +13,7 @@ import CallToAction from "./components/CallToAction"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
 import Testimonials from "./components/Testimonials"
+import ScrollToTop from "./components/ScrollToTop"
 import "./App.css"
 
 function App() {
@@ -67,7 +68,6 @@ function App() {
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Hero />
-            <Features />
             <HowItWorks />
             <Testimonials />
             <Integrations />
@@ -76,6 +76,7 @@ function App() {
             <CallToAction />
           </main>
           <Footer />
+          <ScrollToTop />
         </motion.div>
       )}
     </AnimatePresence>

@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Check, X } from "../icons/Icons"
 import "../styles/Pricing.css"
 
 const pricingPlans = [
@@ -72,7 +71,7 @@ const Pricing = () => {
     if (price === "$0") return "$0"
     const numericPrice = Number.parseInt(price.replace("$", ""))
     const annualPrice = Math.floor(numericPrice * 10)
-    return isAnnual ? `$${annualPrice}` : price
+    return isAnnual ? `${annualPrice}` : price
   }
 
   const calculatePeriod = (isAnnual) => {
@@ -189,10 +188,10 @@ const Pricing = () => {
                         whileHover={{ scale: 1.2, rotate: 10 }}
                         transition={{ type: "spring", stiffness: 500 }}
                       >
-                        <Check />
+                        <i className="fas fa-check"></i>
                       </motion.div>
                     ) : (
-                      <X />
+                      <i className="fas fa-times"></i>
                     )}
                     <span>{feature.name}</span>
                   </motion.div>

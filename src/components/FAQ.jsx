@@ -3,7 +3,6 @@
 import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { ChevronDown } from "../icons/Icons"
 import "../styles/FAQ.css"
 
 const faqs = [
@@ -93,7 +92,7 @@ const FAQ = () => {
               >
                 {faq.question}
                 <motion.div animate={{ rotate: openIndex === index ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown />
+                  <i className="fas fa-chevron-down"></i>
                 </motion.div>
               </motion.button>
               <AnimatePresence>

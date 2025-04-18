@@ -7,32 +7,32 @@ import "../styles/Integrations.css"
 const integrations = [
   {
     name: "Google Drive",
-    icon: "/icons/google-drive.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/2965/2965327.png",
     description: "Seamlessly integrate with Google Drive for file management",
   },
   {
     name: "Dropbox",
-    icon: "/icons/dropbox.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/174/174845.png",
     description: "Connect directly with Dropbox for easy file handling",
   },
   {
     name: "Amazon S3",
-    icon: "/icons/amazon-s3.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/5968/5968332.png",
     description: "Enterprise-grade storage with Amazon S3 integration",
   },
   {
     name: "YouTube",
-    icon: "/icons/youtube.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
     description: "Upload subtitles directly to your YouTube videos",
   },
   {
     name: "Brightcove",
-    icon: "/icons/brightcove.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/5968/5968875.png",
     description: "Integrate with Brightcove for enterprise video management",
   },
   {
     name: "Wistia",
-    icon: "/icons/wistia.svg",
+    icon: "https://cdn-icons-png.flaticon.com/512/732/732212.png",
     description: "Connect with Wistia for professional video hosting and analytics",
   },
 ]
@@ -44,7 +44,7 @@ const Integrations = () => {
   })
 
   return (
-    <section className="integrations-section" ref={ref}>
+    <section className="integrations-section" ref={ref} id="integrations">
       <div className="container">
         <motion.div
           className="section-header"
@@ -64,6 +64,7 @@ const Integrations = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -10, boxShadow: "0 15px 30px rgba(0, 0, 0, 0.15)" }}
             >
               <div className="integration-icon">
                 <img src={integration.icon || "/placeholder.svg"} alt={integration.name} />
@@ -101,9 +102,14 @@ const Integrations = () => {
                 <li>Priority support and implementation assistance</li>
               </ul>
 
-              <a href="#" className="contact-sales-button">
+              <motion.a
+                href="#"
+                className="contact-sales-button"
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 112, 243, 0.2)" }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Contact Sales
-              </a>
+              </motion.a>
             </div>
 
             <div className="integration-workflow">

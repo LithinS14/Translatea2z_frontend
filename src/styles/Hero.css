@@ -1,7 +1,8 @@
 .hero-section {
-  padding: 6rem 0 8rem;
+  padding-top: 30px;
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 .hero-background {
@@ -31,8 +32,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to right, rgba(var(--border-color), 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(var(--border-color), 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(var(--border-color-rgb), 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--border-color-rgb), 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   opacity: 0.3;
 }
@@ -90,7 +91,7 @@
 .hero-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -212,6 +213,8 @@
   display: block;
   border-radius: 16px;
   transition: all var(--transition-speed) var(--transition-function);
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
 }
 
 .dashboard-preview:hover img {
@@ -228,6 +231,7 @@
   box-shadow: var(--card-shadow);
   min-width: 220px;
   transition: all var(--transition-speed) var(--transition-function);
+  z-index: 2;
 }
 
 .processing-info {
@@ -267,6 +271,7 @@
   align-items: center;
   gap: 1rem;
   transition: all var(--transition-speed) var(--transition-function);
+  z-index: 2;
 }
 
 .feature-icon {
@@ -296,7 +301,7 @@
 
 @media (max-width: 992px) {
   .hero-section {
-    padding: 4rem 0 6rem;
+    padding: 100px 0 60px;
   }
 
   .hero-content {
