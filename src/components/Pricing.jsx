@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Check, X } from "../icons/Icons"
@@ -61,13 +62,29 @@ const pricingPlans = [
 ]
 
 const Pricing = () => {
+  const [isAnnual, setIsAnnual] = useState(false)
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
+  const calculatePrice = (price, isAnnual) => {
+    if (price === "$0") return "$0"
+    const numericPrice = Number.parseInt(price.replace("$", ""))
+    const annualPrice = Math.floor(numericPrice * 10)
+    return isAnnual ? `$${annualPrice}` : price
+  }
+
+  const calculatePeriod = (isAnnual) => {
+    return isAnnual ? "/year" : "/month"
+  }
+
   return (
     <section className="pricing-section" id="pricing" ref={ref}>
+      <div className="pricing-background">
+        <div className="pricing-gradient"></div>
+      </div>
+
       <div className="container">
         <motion.div
           className="section-header"
@@ -77,6 +94,29 @@ const Pricing = () => {
         >
           <h2>Simple, Transparent Pricing</h2>
           <p>Choose the plan that fits your needs. All plans include a 14-day free trial.</p>
+
+          <motion.div
+            className="pricing-toggle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <span className={!isAnnual ? "active" : ""}>Monthly</span>
+            <motion.button
+              className={`toggle ${isAnnual ? "active" : ""}`}
+              onClick={() => setIsAnnual(!isAnnual)}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.span
+                className="toggle-thumb"
+                animate={{ x: isAnnual ? 22 : 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            </motion.button>
+            <span className={isAnnual ? "active" : ""}>
+              Annual <span className="save-badge">Save 20%</span>
+            </span>
+          </motion.div>
         </motion.div>
 
         <div className="pricing-plans">
@@ -87,29 +127,75 @@ const Pricing = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
+              whileHover={{
+                y: -10,
+                boxShadow: plan.popular ? "0 20px 40px rgba(0, 112, 243, 0.2)" : "0 20px 40px rgba(0, 0, 0, 0.1)",
+              }}
             >
-              {plan.bestFor && <div className="best-for">{plan.bestFor}</div>}
+              {plan.bestFor && (
+                <motion.div
+                  className="best-for"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 + index * 0.15, duration: 0.3 }}
+                >
+                  {plan.bestFor}
+                </motion.div>
+              )}
 
               <div className="plan-header">
                 <h3>{plan.name}</h3>
                 <p>{plan.description}</p>
               </div>
 
-              <div className="plan-price">
-                <span className="price">{plan.price}</span>
-                <span className="period">{plan.period}</span>
-              </div>
+              <motion.div
+                className="plan-price"
+                animate={{
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: isAnnual ? 0.1 : 0,
+                  ease: "easeInOut",
+                }}
+              >
+                <span className="price">{calculatePrice(plan.price, isAnnual)}</span>
+                <span className="period">{calculatePeriod(isAnnual)}</span>
+              </motion.div>
 
-              <a href="#" className="plan-button">
+              <motion.a
+                href="#"
+                className="plan-button"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 20px rgba(0, 112, 243, 0.2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
                 {plan.buttonText}
-              </a>
+              </motion.a>
 
               <div className="plan-features">
                 {plan.features.map((feature, featureIndex) => (
-                  <div className="feature" key={featureIndex}>
-                    {feature.included ? <Check /> : <X />}
+                  <motion.div
+                    className="feature"
+                    key={featureIndex}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                    transition={{ duration: 0.3, delay: 0.6 + featureIndex * 0.05 + index * 0.1 }}
+                  >
+                    {feature.included ? (
+                      <motion.div
+                        whileHover={{ scale: 1.2, rotate: 10 }}
+                        transition={{ type: "spring", stiffness: 500 }}
+                      >
+                        <Check />
+                      </motion.div>
+                    ) : (
+                      <X />
+                    )}
                     <span>{feature.name}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -132,35 +218,63 @@ const Pricing = () => {
           </div>
 
           <div className="enterprise-plans">
-            <div className="enterprise-card">
+            <motion.div
+              className="enterprise-card"
+              whileHover={{
+                y: -10,
+                boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+              }}
+            >
               <div className="best-value">Best Value</div>
               <h3>Business</h3>
               <p>For power users and growing organizations. Up to 30-50x higher rate limits than free</p>
 
               <div className="plan-price">
-                <span className="price">$200</span>
-                <span className="period">/month</span>
+                <span className="price">{isAnnual ? "$1,800" : "$200"}</span>
+                <span className="period">{isAnnual ? "/year" : "/month"}</span>
               </div>
 
-              <a href="#" className="plan-button">
+              <motion.a
+                href="#"
+                className="plan-button"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 20px rgba(0, 112, 243, 0.2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Get Started
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
-            <div className="enterprise-card">
+            <motion.div
+              className="enterprise-card"
+              whileHover={{
+                y: -10,
+                boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+              }}
+            >
               <h3>Enterprise</h3>
               <p>For media companies and broadcasters</p>
 
               <div className="plan-price">
                 <p>Starts from</p>
                 <span className="price">$2k+</span>
-                <span className="period">/month</span>
+                <span className="period">{isAnnual ? "/year" : "/month"}</span>
               </div>
 
-              <a href="#" className="plan-button contact">
+              <motion.a
+                href="#"
+                className="plan-button contact"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 20px rgba(0, 112, 243, 0.2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Contact sales
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </div>
         </motion.div>
       </div>

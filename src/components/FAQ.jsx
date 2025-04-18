@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useState, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { ChevronDown } from "../icons/Icons"
 import "../styles/FAQ.css"
@@ -56,12 +56,14 @@ const FAQ = () => {
     threshold: 0.1,
   })
 
+  const accordionRefs = useRef([])
+
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index)
   }
 
   return (
-    <section className="faq-section" ref={ref}>
+    <section className="faq-section" ref={ref} id="faq">
       <div className="container">
         <motion.div
           className="section-header"
@@ -81,14 +83,47 @@ const FAQ = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              ref={(el) => (accordionRefs.current[index] = el)}
             >
-              <button className="faq-question" onClick={() => toggleFAQ(index)}>
+              <motion.button
+                className="faq-question"
+                onClick={() => toggleFAQ(index)}
+                whileHover={{ backgroundColor: "var(--primary-light)" }}
+                whileTap={{ scale: 0.98 }}
+              >
                 {faq.question}
-                <ChevronDown className={openIndex === index ? "rotate" : ""} />
-              </button>
-              <div className="faq-answer">
-                <p>{faq.answer}</p>
-              </div>
+                <motion.div animate={{ rotate: openIndex === index ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                  <ChevronDown />
+                </motion.div>
+              </motion.button>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    className="faq-answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{
+                      height: "auto",
+                      opacity: 1,
+                      transition: {
+                        height: { duration: 0.3 },
+                        opacity: { duration: 0.3, delay: 0.1 },
+                      },
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                      transition: {
+                        height: { duration: 0.3 },
+                        opacity: { duration: 0.2 },
+                      },
+                    }}
+                  >
+                    <div className="faq-answer-content">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
@@ -100,9 +135,17 @@ const FAQ = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <p>Still have questions? Our support team is here to help.</p>
-          <a href="#" className="contact-support-button">
+          <motion.a
+            href="#"
+            className="btn btn-primary"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 20px rgba(0, 112, 243, 0.4)",
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
             Contact Support
-          </a>
+          </motion.a>
         </motion.div>
       </div>
     </section>

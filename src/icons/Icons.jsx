@@ -42,6 +42,37 @@ export const ChevronDown = ({ className }) => (
   </svg>
 )
 
+export const ChevronLeft = () => (
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M8.84182 3.13514C9.04327 3.32401 9.05348 3.64042 8.86462 3.84188L5.43521 7.49991L8.86462 11.1579C9.05348 11.3594 9.04327 11.6758 8.84182 11.8647C8.64036 12.0535 8.32394 12.0433 8.13508 11.8419L4.38508 7.84188C4.20477 7.64955 4.20477 7.35027 4.38508 7.15794L8.13508 3.15794C8.32394 2.95648 8.64036 2.94628 8.84182 3.13514Z"
+      fill="currentColor"
+      fillRule="evenodd"
+      clipRule="evenodd"
+    ></path>
+  </svg>
+)
+
+export const ChevronRight = () => (
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M6.1584 3.13508C5.95694 3.32394 5.94673 3.64036 6.1356 3.84182L9.56499 7.5L6.1356 11.1582C5.94673 11.3596 5.95694 11.6761 6.1584 11.8649C6.35986 12.0538 6.67627 12.0436 6.86514 11.8421L10.6151 7.84182C10.7954 7.64949 10.7954 7.35051 10.6151 7.15818L6.86514 3.15818C6.67627 2.95672 6.35986 2.94651 6.1584 3.13508Z"
+      fill="currentColor"
+      fillRule="evenodd"
+      clipRule="evenodd"
+    ></path>
+  </svg>
+)
+
+export const Quote = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M4.08 9H7.08C7.62 9 8.08 9.45 8.08 10V13C8.08 13.55 7.62 14 7.08 14H5.08V16H7.08C8.71 16 10.08 14.62 10.08 13V10C10.08 8.38 8.71 7 7.08 7H4.08C3.53 7 3.08 7.45 3.08 8C3.08 8.55 3.53 9 4.08 9ZM16.08 7H13.08C11.45 7 10.08 8.38 10.08 10V13C10.08 14.62 11.45 16 13.08 16H16.08C16.62 16 17.08 15.55 17.08 15C17.08 14.45 16.62 14 16.08 14H13.08V10H16.08C16.62 10 17.08 9.55 17.08 9C17.08 8.45 16.62 7 16.08 7Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
 export const Sun = () => (
   <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -73,29 +104,3 @@ export const Upload = () => (
   </svg>
 )
 
-export const Processing = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M15.5 1H7.5C6.12 1 5 2.12 5 3.5V20.5C5 21.88 6.12 23 7.5 23H15.5C16.88 23 18 21.88 18 20.5V3.5C18 2.12 16.88 1 15.5 1ZM11.5 14C9.01 14 7 11.99 7 9.5C7 7.01 9.01 5 11.5 5C13.99 5 16 7.01 16 9.5C16 11.99 13.99 14 11.5 14ZM11.5 7C10.12 7 9 8.12 9 9.5C9 10.88 10.12 12 11.5 12C12.88 12 14 10.88 14 9.5C14 8.12 12.88 7 11.5 7Z"
-      fill="currentColor"
-    />
-  </svg>
-)
-
-export const Edit = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C17.98 2.9 17.35 2.9 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04Z"
-      fill="currentColor"
-    />
-  </svg>
-)
-
-export const Export = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M19 12V19H5V12H3V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V12H19ZM13 12.67L15.59 10.09L17 11.5L12 16.5L7 11.5L8.41 10.09L11 12.67V3H13V12.67Z"
-      fill="currentColor"
-    />
-  </svg>
-)
